@@ -4,10 +4,10 @@ import java.sql.*;
 import java.util.Scanner;
 
 public class TestDB {
-     public static void main(String[] args) {
+    public static void main(String[] args) {
 
-       Connection c;
-         Statement stmt;
+        Connection c;
+        Statement stmt;
 
         try {
             Class.forName("org.postgresql.Driver");
@@ -19,7 +19,7 @@ public class TestDB {
             String sql;
 
             //-------------- CREATE TABLE ---------------
-           stmt = c.createStatement();
+            stmt = c.createStatement();
             sql = "CREATE TABLE public.\"Priority\"\n" +
                     "(\n" +
                     "    \"Id\" integer NOT NULL,\n" +
@@ -38,19 +38,19 @@ public class TestDB {
 
             //--------------- INSERT ---------------
 
-Scan scan = new Scan();
+            Scan scan = new Scan();
 
-stmt = c.createStatement();
+            stmt = c.createStatement();
             sql = "INSERT INTO public.\"Order\"(\n" +
                     "\t\"Id\", \"Order_date\", \"Client_Id\", \"Manager_Id\", \"Contractor_Id\", \"Priority\", \"Description\", \"Status\")\n" +
                     "\tVALUES (" +
-                    scan.val.getId() + "," +"'" +scan.val.getOrder_date() + "'" + "," + scan.val.getClient_Id() + "," +scan.val.getManager_Id()+ "," +scan.val.getContractor_Id()+ ","
-                    + "'" + scan.val.getPriority() + "'" + ","+ "'" + scan.val.getDescription() + "'" + "," +scan.val.getStatus()+");";
+                    scan.val.getId() + "," + "'" + scan.val.getOrder_date() + "'" + "," + scan.val.getClient_Id() + "," + scan.val.getManager_Id() + "," + scan.val.getContractor_Id() + ","
+                    + "'" + scan.val.getPriority() + "'" + "," + "'" + scan.val.getDescription() + "'" + "," + scan.val.getStatus() + ");";
             stmt.executeUpdate(sql);
 
-           stmt.close();
-           c.commit();
-           System.out.println("-- Records created successfully");
+            stmt.close();
+            c.commit();
+            System.out.println("-- Records created successfully");
 
 
             //--------------- SELECT------------------
@@ -66,18 +66,18 @@ stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM \"Order\"" +
                     "WHERE \"Order_date\" = '25.02.2021';");
             while (rs.next()) {
-                 id = rs.getInt("Id");
-                order_date=rs.getString("Order_date");
-                client_Id=rs.getInt("Client_Id");
-                manager_Id=rs.getInt("Manager_Id");
-                contractor_Id=rs.getInt("Contractor_Id");
-                priority=rs.getString("Priority");
-                description=rs.getString("Description");
-                status =rs.getInt("Status");
+                id = rs.getInt("Id");
+                order_date = rs.getString("Order_date");
+                client_Id = rs.getInt("Client_Id");
+                manager_Id = rs.getInt("Manager_Id");
+                contractor_Id = rs.getInt("Contractor_Id");
+                priority = rs.getString("Priority");
+                description = rs.getString("Description");
+                status = rs.getInt("Status");
                 System.out.println(String.format("ID=%s OrderDate=%s ClientId=%s ManagerId=%s ContractorId=%s Priority=%s " +
-                        "Description=%s Status=%s ", id, order_date, client_Id, manager_Id, contractor_Id, priority, description,status));
-           }
-            rs=stmt.executeQuery("SELECT MIN(\"Order_date\") FROM public.\"Order\"");
+                        "Description=%s Status=%s ", id, order_date, client_Id, manager_Id, contractor_Id, priority, description, status));
+            }
+            rs = stmt.executeQuery("SELECT MIN(\"Order_date\") FROM public.\"Order\"");
             if (rs.next()) {
                 String min = rs.getString(1);
                 System.out.println(min);
@@ -96,61 +96,63 @@ stmt = c.createStatement();
 
 }
 
-class Value{
+class Value {
 
-Integer id;
-String order_date;
-Integer client_Id;
-Integer manager_Id;
-Integer contractor_Id;
-String priority;
-String description;
-int status;
+    Integer id;
+    String order_date;
+    Integer client_Id;
+    Integer manager_Id;
+    Integer contractor_Id;
+    String priority;
+    String description;
+    int status;
 
-     public Value(Integer id, String order_date,
-                   Integer client_Id, Integer manager_Id, Integer contractor_Id,
-                   String priority, String description, int status) {
-         this.id = id;
-         this.order_date = order_date;
-         this.client_Id = client_Id;
-         this.manager_Id = manager_Id;
-         this.contractor_Id = contractor_Id;
-         this.priority = priority;
-         this.description = description;
-         this.status = status;
+    public Value(Integer id, String order_date,
+                 Integer client_Id, Integer manager_Id, Integer contractor_Id,
+                 String priority, String description, int status) {
+        this.id = id;
+        this.order_date = order_date;
+        this.client_Id = client_Id;
+        this.manager_Id = manager_Id;
+        this.contractor_Id = contractor_Id;
+        this.priority = priority;
+        this.description = description;
+        this.status = status;
 
-     }
-     public Integer getId() {
-         return id;
-     }
+    }
 
-     public String getOrder_date() {
-         return order_date;
-     }
+    public Integer getId() {
+        return id;
+    }
 
-     public Integer getClient_Id() {
-         return client_Id;
-     }
+    public String getOrder_date() {
+        return order_date;
+    }
 
-     public Integer getManager_Id() {
-         return manager_Id;
-     }
+    public Integer getClient_Id() {
+        return client_Id;
+    }
 
-     public Integer getContractor_Id() {
-         return contractor_Id;
-     }
+    public Integer getManager_Id() {
+        return manager_Id;
+    }
 
-     public String getPriority() {
-         return priority;
-     }
+    public Integer getContractor_Id() {
+        return contractor_Id;
+    }
 
-     public String getDescription() {
-         return description;
-     }
+    public String getPriority() {
+        return priority;
+    }
 
-     public int getStatus() {
-         return status;
-     }
+    public String getDescription() {
+        return description;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -183,18 +185,19 @@ int status;
         this.status = status;
     }
 
- }
- class Scan{
+}
+
+class Scan {
     Scanner sc = new Scanner(System.in);
-     Integer order = sc.nextInt();
-     String date = sc.next();
-     Integer client =sc.nextInt();
-    Integer manager=sc.nextInt();
-     Integer contractor=sc.nextInt();
-     String prior=sc.next();
-     String desc=sc.next();
-     Integer st=sc.nextInt();
-Value val =new Value(order, date, client, manager, contractor, prior,desc,st );
+    Integer order = sc.nextInt();
+    String date = sc.next();
+    Integer client = sc.nextInt();
+    Integer manager = sc.nextInt();
+    Integer contractor = sc.nextInt();
+    String prior = sc.next();
+    String desc = sc.next();
+    Integer st = sc.nextInt();
+    Value val = new Value(order, date, client, manager, contractor, prior, desc, st);
 
 }
 
